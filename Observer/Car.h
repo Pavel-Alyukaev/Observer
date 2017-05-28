@@ -5,12 +5,17 @@
 
 class Car : public TrafficParticipant
 {
-
+protected:
+	bool seeTrafficLight;
+	void moveGreenLight();
+	void moveYellowLight();
+	void moveRedLight();
 public:
+	Car::Car();
 	Car(TrafficLight *obj);
 	~Car();
 	
 	void update(int color);
-	bool AnalysisOfTheTrafficSituation();
-
+	double getDistance();
+	void newCar();
 };

@@ -6,12 +6,17 @@
 class Footpassenger : public TrafficParticipant
 {
 protected:
-	int speed;
+	void moveGreenLight();
+	void moveYellowLight();
+	void moveRedLight();
 public:
+	Footpassenger();
 	Footpassenger(TrafficLight*obj);
 	~Footpassenger();
 	void update(int color);
-	bool Footpassenger::AnalysisOfTheTrafficSituation();
+	double getDistance();
+	void newFootpassenger();
 
 };
+
 

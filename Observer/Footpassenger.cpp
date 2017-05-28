@@ -8,11 +8,17 @@ Footpassenger::~Footpassenger()
 {
 }
 
+Footpassenger::Footpassenger()
+{
+	acceleration = 0;
+	speed = (rand() % 5 + 2) / 3.6;
+	distance = rand() % 15 + 5;
+}
+
 Footpassenger::Footpassenger(TrafficLight*obj)
 {
-	srand(time(0));
 	acceleration = 0;
-	speed = rand() % 7+2;
+	speed = (rand() % 5 + 2) / 3.6;
 	distance = rand() % 15 + 5;
 	obj->attach(this);
 }
@@ -20,21 +26,49 @@ void Footpassenger::update(int color)
 {
 	switch (color)
 	{
-	case 0: speed = 0;
-		std::cout << "Footpassenger stop" << std::endl;
+	case 0: 
+		moveGreenLight();
+		std::cout << "Footpassenger " ;
+		std::cout << "	speed: " << speed << ";  distance: " << distance << ";" << std::endl;
 		break;
-	case 1: speed = 0;
-
-		std::cout << "Footpassenger "<< 
-			(this->AnalysisOfTheTrafficSituation()? "accelerating" : "stopping" )<< std::endl;
+	case 1:
+		moveYellowLight();
+		std::cout << "Footpassenger " ;
+		std::cout << "	speed: " << speed << ";  distance: " << distance << ";" << std::endl;
 		break;
-	case 2:  speed = 5;
-		std::cout << "Footpassenger go" << std::endl;
+	case 2:  
+		moveRedLight();
+		std::cout << "Footpassenger ";
+		std::cout << "	speed: " << speed << ";  distance: " << distance << ";" << std::endl;
 		break;
 	}
 }
 
-bool Footpassenger::AnalysisOfTheTrafficSituation()
+double Footpassenger::getDistance()
 {
-	return (distance<5)? true:false;
+	return distance;
+}
+void Footpassenger::newFootpassenger()
+{
+	acceleration = 0;
+	speed = (rand() % 5 + 2) / 3.6;
+	distance = rand() % 15 + 5;
+}
+void Footpassenger::moveRedLight()
+{
+	if (speed == 0)speed = 5 / 3.6;
+	distance -= speed;
+}
+void Footpassenger::moveYellowLight()
+{
+	if (distance < 2 && distance >0.5) speed = 0;
+	distance -= speed;
+}
+void Footpassenger::moveGreenLight()
+{
+	if (speed != 0)
+	{
+		if (distance < 2 && distance >0) speed = 0;
+		distance -= speed;
+	}
 }
